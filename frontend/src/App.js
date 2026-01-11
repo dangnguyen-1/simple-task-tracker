@@ -12,6 +12,9 @@ function App() {
         const res = await fetch("/api/tasks");
         const data = await res.json();
         setTasks(data);
+
+        // Force loading state to be visible (demo)
+        await new Promise((resolve) => setTimeout(resolve, 1200));
       } catch (err) {
         console.error("Failed to fetch tasks:", err);
       } finally {
@@ -30,18 +33,12 @@ function App() {
         <p className="loading">Loading...</p>
       ) : (
         <ul className="task-list">
-          {tasks.map((task) => {
-            const isCompleted = task.status === "done";
-            return (
-              <li
-                key={task.id}
-                className={`task-item ${isCompleted ? "completed" : "pending"}`}
-              >
-                <div className="task-title">{task.title}</div>
-                <div className="task-status">{task.status}</div>
-              </li>
-            );
-          })}
+          {tasks.map((task) => (
+            <li key={task.id} className={`task-item status-${task.status}`}>
+              <div className="task-title">{task.title}</div>
+              <div className="task-status">{task.status}</div>
+            </li>
+          ))}
         </ul>
       )}
     </div>

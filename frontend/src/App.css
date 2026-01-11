@@ -34,15 +34,20 @@
   font-weight: 600;
 }
 
-/* completed vs pending */
-.task-item.completed {
-  background: #e9f7ef;
-  border-color: #b7e0c5;
+/* Status styling: done / in-progress / todo */
+.task-item.status-done {
+  background: #e8f5e9;
+  border-color: #66bb6a;
 }
 
-.task-item.pending {
-  background: #fff6e5;
-  border-color: #ffe0a3;
+.task-item.status-in-progress {
+  background: #fff8e1;
+  border-color: #ffca28;
+}
+
+.task-item.status-todo {
+  background: #ffebee;
+  border-color: #ef5350;
 }
 
 .task-status {
@@ -50,7 +55,7 @@
   opacity: 0.8;
 }
 
-/* Responsive */
+/* Responsive (Mobile/Desktop) */
 @media (max-width: 600px) {
   .task-item {
     flex-direction: column;
