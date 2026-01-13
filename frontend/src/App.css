@@ -1,3 +1,4 @@
+/* Page layout, title, loading */
 .app-container {
   max-width: 800px;
   margin: 0 auto;
@@ -14,7 +15,7 @@
   font-size: 18px;
 }
 
-/* Add Task form */
+/* Add task form (layout, input box, button) */
 .add-task-form {
   display: flex;
   gap: 10px;
@@ -49,7 +50,7 @@
   cursor: pointer;
 }
 
-/* Task list */
+/* Task list (hold all tasks) */
 .task-list {
   list-style: none;
   padding: 0;
@@ -58,7 +59,7 @@
   gap: 12px;
 }
 
-/* Task row */
+/* Task row (individual task card) */
 .task-item {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -70,7 +71,7 @@
   box-sizing: border-box;
 }
 
-/* Left side (title input) */
+/* Task left side (title text, title input) */
 .task-left {
   flex: 1;
   min-width: 0;
@@ -83,7 +84,6 @@
   white-space: nowrap;
 }
 
-/* Edit title input */
 .edit-task-input {
   width: 100%;
   min-width: 0;
@@ -94,7 +94,7 @@
   box-sizing: border-box;
 }
 
-/* Right side (status + buttons aligned) */
+/* Task right side (status, buttons) */
 .task-right {
   display: flex;
   align-items: center;
@@ -108,7 +108,6 @@
   white-space: nowrap;
 }
 
-/* Task actions */
 .task-actions {
   display: flex;
   gap: 8px;

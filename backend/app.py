@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# In-memory data store
+# In-memory data store (resets every time the server restarts)
 TASKS = [
     {"id": 1, "title": "Finalize co-op resume", "status": "done"},
     {"id": 2, "title": "Complete TC take-home challenge", "status": "in-progress"},
@@ -11,13 +11,16 @@ TASKS = [
 
 ALLOWED_STATUSES = {"todo", "in-progress", "done"}
 
+# Returns the full list of tasks as JSON
 @app.get("/api/tasks")
 def get_tasks():
     return jsonify(TASKS)
 
-# Add tasks
+# Creates a new task: {title, status}
 @app.post("/api/tasks")
 def add_task():
+    
+    # Safely parse JSON body (returns {} if missing/invalid)
     data = request.get_json(silent=True) or {}
 
     title = data.get("title", "").strip()
@@ -28,21 +31,24 @@ def add_task():
     if status not in ALLOWED_STATUSES:
         return jsonify({"error": "invalid status"}), 400
 
+    # Generate a new unique task ID
     new_id = max(task["id"] for task in TASKS) + 1 if TASKS else 1
     new_task = {"id": new_id, "title": title, "status": status}
     TASKS.append(new_task)
 
     return jsonify(new_task), 201
 
-# Edit tasks
+# Updates an existing task's title and/or status
 @app.put("/api/tasks/<int:task_id>")
 def update_task(task_id):
+    
+    # Safely parse JSON body (returns {} if missing/invalid)
     data = request.get_json(silent=True) or {}
 
     title = data.get("title")
     status = data.get("status")
 
-    # Validate if provided
+    # Validate provided fields
     if title is not None:
         title = title.strip()
         if not title:

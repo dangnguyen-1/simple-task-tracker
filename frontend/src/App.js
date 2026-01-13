@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
+  // Store tasks fetched from the backend API
   const [tasks, setTasks] = useState([]);
+
+  // Controls the Loading... UI
   const [loading, setLoading] = useState(true);
 
   // Add task state
@@ -14,10 +17,13 @@ function App() {
   const [editTitle, setEditTitle] = useState("");
   const [editStatus, setEditStatus] = useState("todo");
 
+  // Fetch tasks once when the App component mounts
   useEffect(() => {
     async function fetchTasks() {
       try {
         setLoading(true);
+
+        // GET tasks from backend
         const res = await fetch("/api/tasks");
         const data = await res.json();
         setTasks(data);
@@ -34,13 +40,17 @@ function App() {
     fetchTasks();
   }, []);
 
+  // Handle form submission to add a new task
   async function handleAddTask(e) {
+
+    // prevent full-page refresh
     e.preventDefault();
 
     const title = newTitle.trim();
     if (!title) return;
 
     try {
+      // POST (add) a new task to the backend
       const res = await fetch("/api/tasks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,8 +62,13 @@ function App() {
         return;
       }
 
+      // Backend returns the created task (including new id)
       const createdTask = await res.json();
+
+      // Update UI locally without re-fetching everything
       setTasks((prev) => [...prev, createdTask]);
+
+      // Reset the form inputs
       setNewTitle("");
       setNewStatus("todo");
     } catch (err) {
@@ -61,20 +76,25 @@ function App() {
     }
   }
 
+  // Enter edit mode for a specific task (pre-fill form fields)
   function startEditing(task) {
     setEditingId(task.id);
     setEditTitle(task.title);
     setEditStatus(task.status);
   }
 
+  // Exit edit mode without saving
   function cancelEditing() {
     setEditingId(null);
     setEditTitle("");
     setEditStatus("todo");
   }
 
+  // Save edits (title + status) to backend via PUT
   async function saveEdit(taskId) {
     const title = editTitle.trim();
+
+    // Prevent empty title
     if (!title) return;
 
     try {
@@ -89,21 +109,28 @@ function App() {
         return;
       }
 
+      // Update the edited task
       const updatedTask = await res.json();
       setTasks((prev) => prev.map((t) => (t.id === taskId ? updatedTask : t)));
 
+      // Leave edit mode after saving
       cancelEditing();
     } catch (err) {
       console.error("Failed to update task:", err);
     }
   }
 
+  // Task Tracker page UI
   return (
+
+    // Main container & title
     <div className="app-container">
       <h1 className="title">Task Tracker</h1>
-
-      {/* Add Task */}
+      
+      {/* Add task form */}
       <form onSubmit={handleAddTask} className="add-task-form">
+
+        {/* Task title input */}
         <input
           className="add-task-input"
           type="text"
@@ -112,6 +139,7 @@ function App() {
           placeholder="Add a new task..."
         />
 
+        {/* Status dropdown */}
         <select
           className="status-select"
           value={newStatus}
@@ -122,17 +150,23 @@ function App() {
           <option value="done">done</option>
         </select>
 
+        {/* Submit button */}
         <button className="add-task-button" type="submit">
           Add
         </button>
       </form>
 
+      {/* Loading vs task list (conditional rendering) */}
       {loading ? (
         <p className="loading">Loading...</p>
       ) : (
         <ul className="task-list">
+
+          {/* Render task list */}
           {tasks.map((task) => (
             <li key={task.id} className={`task-item status-${task.status}`}>
+
+              {/* Task left side: title or edit input */}
               <div className="task-left">
                 {editingId === task.id ? (
                   <input
@@ -146,6 +180,7 @@ function App() {
                 )}
               </div>
 
+              {/* Task right side: status or status dropdown */}
               <div className="task-right">
                 {editingId === task.id ? (
                   <select
@@ -161,6 +196,7 @@ function App() {
                   <div className="task-status">{task.status}</div>
                 )}
 
+                {/* Buttons: Edit OR Save/Cancel */}
                 <div className="task-actions">
                   {editingId === task.id ? (
                     <>
