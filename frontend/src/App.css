@@ -14,13 +14,51 @@
   font-size: 18px;
 }
 
+/* Add Task form */
+.add-task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.add-task-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.add-task-button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Dropdown for status (Add + Edit) */
+.status-select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+/* Task list */
 .task-list {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: grid;
   gap: 12px;
 }
 
+/* Task row */
 .task-item {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -28,9 +66,60 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+/* Left side (title input) */
+.task-left {
+  flex: 1;
+  min-width: 0;
 }
 
 .task-title {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Edit title input */
+.edit-task-input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Right side (status + buttons aligned) */
+.task-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.task-status {
+  font-size: 14px;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+/* Task actions */
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-button {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -50,16 +139,23 @@
   border-color: #ef5350;
 }
 
-.task-status {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
 /* Responsive (Mobile/Desktop) */
 @media (max-width: 600px) {
+  .add-task-form {
+    flex-direction: column;
+  }
+
   .task-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+  }
+
+  .task-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .task-actions {
+    justify-content: flex-end;
   }
 }
