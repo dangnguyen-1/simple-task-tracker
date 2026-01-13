@@ -8,6 +8,10 @@ This project is a simple full-stack task tracker built with:
 
 Tasks are stored in an **in-memory list** (no database). This keeps the project lightweight and easy to run locally.
 
+<p align="center">
+  <img src="images/task_tracker.png" width="700">
+</p>
+
 ---
 
 ## Features
