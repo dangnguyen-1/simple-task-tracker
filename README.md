@@ -69,8 +69,7 @@ pip install flask
 python3 app.py
 ```
 
-**Backend runs at:**
-- http://127.0.0.1:5000
+- **Backend runs at:** http://127.0.0.1:5000
 
 ### Frontend (React)
 
@@ -82,8 +81,7 @@ npm install
 npm start
 ```
 
-**Frontend runs at:**
-- http://localhost:3000
+- **Frontend runs at:**: http://localhost:3000
 
 ---
 
