@@ -1,4 +1,4 @@
-# Task Tracker (Flask + React)
+# Simple Task Tracker
 
 ## Overview
 
@@ -23,6 +23,7 @@ Tasks are stored in an **in-memory list** (no database). This keeps the project 
 - Fetch and display tasks from the backend
 - Add a new task with a selected status (`todo`, `in-progress`, `done`)
 - Edit an existing task's title and status
+- Delete an existing task
 
 > **Note:** Data resets whenever the Flask server restarts.
 
