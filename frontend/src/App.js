@@ -120,6 +120,25 @@ function App() {
     }
   }
 
+  // Handle delete request to backend
+  async function handleDelete(taskId) {
+  try {
+    const res = await fetch("/api/tasks/" + taskId, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      console.error("Failed to delete task");
+      return;
+    }
+
+    // Remove the deleted task
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+  } catch (err) {
+    console.error("Failed to delete task:", err);
+  }
+}
+
   // Task Tracker page UI
   return (
 
@@ -216,13 +235,23 @@ function App() {
                       </button>
                     </>
                   ) : (
-                    <button
-                      type="button"
-                      className="task-button"
-                      onClick={() => startEditing(task)}
-                    >
-                      Edit
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        className="task-button"
+                        onClick={() => startEditing(task)}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        className="task-button delete-button"
+                        onClick={() => handleDelete(task.id)}
+                      >
+                        Delete
+                      </button>
+                    </>
                   )}
                 </div>
               </div>

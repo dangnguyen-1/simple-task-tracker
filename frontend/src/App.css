@@ -1,3 +1,12 @@
+/* Font style */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue";
+}
+
+input, button, select {
+  font-family: inherit;
+}
+
 /* Page layout, title, loading */
 .app-container {
   max-width: 800px;

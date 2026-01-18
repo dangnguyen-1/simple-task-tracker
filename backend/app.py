@@ -67,5 +67,17 @@ def update_task(task_id):
 
     return jsonify({"error": "task not found"}), 404
 
+# Delete an existing task by id
+@app.delete("/api/tasks/<int:task_id>")
+def delete_task(task_id):
+    
+    # Find the index of the task to delete
+    for i, task in enumerate(TASKS):
+        if task["id"] == task_id:
+            deleted_task = TASKS.pop(i)
+            return jsonify(deleted_task)
+
+    return jsonify({"error": "task not found"}), 404
+
 if __name__ == "__main__":
     app.run(debug=True)
